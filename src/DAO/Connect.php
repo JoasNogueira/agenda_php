@@ -2,10 +2,12 @@
 
 namespace src\DAO;
 
-class Conect {
+use \PDO;
+
+class Connect {
     
     private $host = 'mysql:host=localhost;dbname=agenda';
-    private $user = 'Root';
+    private $user = 'root';
     private $pass = '';
     
     public function __construct() {
@@ -27,7 +29,6 @@ class Conect {
                     $this->pass);
             
             $this->conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo 'conetion susseful';
             
         } catch (PDOException $ex) {
             echo "Connection failed: " . $ex->getMessage();

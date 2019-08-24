@@ -8,6 +8,7 @@ class Contato {
     private $email;
     private $sexo;
     private $telefones;
+    private $usuario;
             
     
     function getId() {
@@ -49,6 +50,15 @@ class Contato {
     function setTelefones($telefones): array {
         $this->telefones = $telefones;
     }
+
+    function getUsuario(): Usuario {
+        return $this->usuario;
+    }
+
+    function setUsuario(Usuario $usuario) {
+        $this->usuario = $usuario;
+    }
+
 
 
 }

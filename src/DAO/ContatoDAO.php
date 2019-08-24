@@ -2,34 +2,107 @@
 
 namespace src\DAO;
 
-require 'src\DAO\Conect.php';
-require 'src\models\Contato.php';
+require 'Connect.php';
+require '..\models\Contato.php';
+require '..\models\Usuario.php';
+
+use src\models\Contato;
+
+use src\DAO\Connect;
 
 class ContatoDAO {
     
     private $db;
     
-    public function __construct(Conect $db) {
-        $this->db = $db;
+    public function __construct() {
+        $conn = new Connect();
+        $this->db = $conn->getConection();
     }
 
-    public function listar()
+    public function listar(): Array
     {
-        $query = "SELECT id, nome, email, sexo FROM contatos";
-        $resultado = $this->db->getConection()->query($query);
+        $query = "SELECT id_contato, nome, email_contato, sexo_contato FROM contato";
+        $resultado = $this->db->query($query);
         
-        $lista = $resultado->fetchAll();
+        $listaDB = $resultado->fetchAll();
         
+        $lista = [];
+        
+        foreach ($listaDB as $c)
+        {
+            $contato = new Contato();
+            $contato->setId($c['id_contato']);
+            $contato->setNome($c['nome']);
+            $contato->setSexo($c['sexo_contato']);
+            $contato->setEmail($c['email_contato']);
+            
+            $lista[] = $contato;
+        }
+        
+        
+        return $lista;
+    }
+    
+    public function buscarPorId ($id): Contato
+    {
+        $query = "SELECT id_contato, nome, email_contato, sexo_contato FROM contato WHERE id_contato=$id";
+        $resultado = $this->db->query($query);
+        
+        $contatoDB = $resultado->fetch();
+        
+            $contato = new Contato();
+            $contato->setId($contatoDB['id_contato']);
+            $contato->setNome($contatoDB['nome']);
+            $contato->setSexo($contatoDB['sexo_contato']);
+            $contato->setEmail($contatoDB['email_contato']);
+        
+        
+        return $contato;
     }
 
-    public function addContato(\src\models\Contato $Contato)
+    public function addContato(Contato $contato)
     {
-        $nome = $Contato->getNome();
-        $email = $Contato->getEmail();
-        $sexo = $Contato->getSexo();
+        try {
+            $nome = $contato->getNome();
+            $email = $contato->getEmail();
+            $sexo = $contato->getSexo();
+            $id_usuario = $contato->getUsuario()->getId();
         
-        $this->db->getConection();
-        $query = "INSERT INTO contatos (nome, email, sexo) VALUES ($nome, $email, $sexo)";
-        $db->exec($query);
+            $query = "INSERT INTO contato (nome, email_contato, sexo_contato, id_usuario) VALUES ('$nome', '$email', '$sexo',$id_usuario)";
+            $this->db->exec($query);
+            
+            echo 'Contato adicionnado com sucesso';
+            
+            return true;
+        } catch (PDOException $ex) {
+            echo 'Erro ao inserir o contato: ' . $ex->getMessage();
+        }
+
+    }
+    
+    public function editarContato(Contato $contato)
+    {
+        
+        $query = "UPDATE contato SET nome='$contato->getNome()', email_contato='$contato->getEmail()', sexo_contato='$contato->getSexo()' WHERE id_contato=$contato->getId()";
+    }
+    
+    public function excluirContato(Contato $contato)
+    {
+        $query = "DELETE FROM contato WHERE id_contato=$contato->getId()";
     }
 }
+
+/*$contatoD = new ContatoDAO();
+$contato = new Contato();
+$usuario = new \src\models\Usuario();
+
+$contato->setNome('Daniel');
+$contato->setSexo('M');
+$contato->setEmail('magalhaesdaniel2009@hotmail.com');
+$usuario->setId('1');
+$contato->setUsuario($usuario);
+
+//$contatoD->addContato($contato);
+
+echo '<pre>';
+var_dump($contatoD->listar());*/

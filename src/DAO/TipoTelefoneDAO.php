@@ -8,15 +8,15 @@ require 'src\models\TipoTelefone.php';
 class TipoTelefoneDAO {
     private $db;
     
-    public function __construct(Conect $db) {
-        $this->db = $db;
+    public function __construct() {
+        $conn = new Connect();
+        $this->db = $conn->getConection();
     }
     public function addTelefone(\src\models\TipoTelefone $tipoTelefone)
     {
         $tipoTelefone = $tipoTelefone->getNome();
                 
-        $this->db->getConection();
-        $query = "INSERT INTO tipoTelefones (nome) VALUES ($tipoTelefone)";
+        $query = "INSERT INTO tipoTelefone (nome) VALUES ($tipoTelefone)";
         $this->db->exec($query);
     }
 }

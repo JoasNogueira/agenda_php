@@ -5,14 +5,15 @@ namespace src\DAO;
 class UsuarioDAO {
         private $db;
     
-    public function __construct(Conect $db) {
-        $this->db = $db;
+    public function __construct() {
+        $conn = new Connect();
+        $this->db = $conn->getConection();
     }
 
     public function listar()
     {
         $query = "SELECT id, nome, email, sexo FROM usuarios";
-        $resultado = $this->db->getConection()->query($query);
+        $resultado = $this->db->query($query);
         
         $lista = $resultado->fetchAll();
         
@@ -24,8 +25,13 @@ class UsuarioDAO {
         $email = $Usuario->getEmail();
         $sexo = $Usuario->getSexo();
         
-        $this->db->getConection();
         $query = "INSERT INTO usuarios (nome, email, sexo) VALUES ($nome, $email, $sexo)";
-        $db->exec($query);
+        $this->db->exec($query);
+    }
+    
+    public function editarContato(\src\models\Usuario $usuario)
+    {
+        
+        $query = "UPDATE usuario SET nome='$usuario->getNome()', email_usuario='$usuario->getEmail()', sexo_usuario='$usuario->getSexo()' WHERE id_usuario=$usuario->getId()";
     }
 }
