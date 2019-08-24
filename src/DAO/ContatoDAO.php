@@ -2,13 +2,10 @@
 
 namespace src\DAO;
 
-require 'Connect.php';
-require '..\models\Contato.php';
-require '..\models\Usuario.php';
-
-use src\models\Contato;
-
 use src\DAO\Connect;
+use src\models\Contato;
+use src\models\Usuario;
+
 
 class ContatoDAO {
     

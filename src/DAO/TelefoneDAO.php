@@ -1,6 +1,5 @@
 <?php
 
-
 namespace src\DAO;
 
 require 'src\DAO\Conect.php';
