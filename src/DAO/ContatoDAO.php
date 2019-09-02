@@ -53,6 +53,7 @@ class ContatoDAO {
             $contato->setSexo($contatoDB['sexo_contato']);
             $contato->setEmail($contatoDB['email_contato']);
         
+            
         
         return $contato;
     }
