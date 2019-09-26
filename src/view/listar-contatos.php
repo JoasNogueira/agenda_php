@@ -11,17 +11,17 @@
                     <h4><?= $contato->getNome(); ?></h4>
                 </div>
                 <div class="mdl-card__actions">
-                    <a href="#" class="mdl-button">Ver Contato</a>
+                    <a href="/detalhes?id=<?= $contato->getId() ?>" class="mdl-button">Ver Contato</a>
                 </div>
             </div>
-<!--            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
-                <i class="material-icons">more_vert</i>
-            </button>
-            <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
-                <li class="mdl-menu__item">Lorem</li>
-                <li class="mdl-menu__item" disabled>Ipsum</li>
-                <li class="mdl-menu__item">Dolor</li>
-            </ul>-->
+            <!--            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
+                            <li class="mdl-menu__item">Lorem</li>
+                            <li class="mdl-menu__item" disabled>Ipsum</li>
+                            <li class="mdl-menu__item">Dolor</li>
+                        </ul>-->
         </section>
     <?php endforeach; ?>
 </div>

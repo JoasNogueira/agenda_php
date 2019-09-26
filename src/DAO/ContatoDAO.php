@@ -40,7 +40,7 @@ class ContatoDAO {
         return $lista;
     }
     
-    public function buscarPorId ($id): Contato
+    public function buscarPorId ($id): Contato 
     {
         $query = "SELECT id_contato, nome, email_contato, sexo_contato FROM contato WHERE id_contato=$id";
         $resultado = $this->db->query($query);
@@ -52,7 +52,10 @@ class ContatoDAO {
             $contato->setNome($contatoDB['nome']);
             $contato->setSexo($contatoDB['sexo_contato']);
             $contato->setEmail($contatoDB['email_contato']);
-        
+            
+            $telefoneDao = new TelefoneDAO();
+            $telefones = $telefoneDao->listarTelefonePorContato($id);
+            $contato->setTelefones($telefones);
             
         
         return $contato;

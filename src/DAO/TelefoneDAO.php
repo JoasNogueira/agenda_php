@@ -2,10 +2,9 @@
 
 namespace src\DAO;
 
-require 'src\DAO\Conect.php';
-require '..\models\Telefone.php';
-
-use src\models\Telefone;
+use src\DAO\Connect;
+use src\models\Contato;
+use src\models\Usuario;
 
 
 class TelefoneDAO {
@@ -17,10 +16,10 @@ class TelefoneDAO {
         $this->db = $conn->getConection();
     }
     
-    public function listarTelefone(): Array
+    public function listarTelefonePorContato($id): Array 
     {
         
-        $query = "SELECT numero, tipoTelefone FROM telefone WHERE id_contato = $contato->getId()";
+        $query = "SELECT numero FROM telefone WHERE id_contato = $id";
         $resultado = $this->db->query($query);
         
         $listaDB = $resultado->fetchAll();

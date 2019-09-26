@@ -47,7 +47,7 @@ class Contato {
         return $this->telefones;
     }
 
-    function setTelefones($telefones): array {
+    function setTelefones(Array $telefones) {
         $this->telefones = $telefones;
     }
 

@@ -16,4 +16,28 @@ class Contatos extends AbstractController {
         ]);
 
     }
+    
+    public function BuscarContatoId()
+    {
+        
+        $id = filter_input(
+                INPUT_GET, 
+                'id', 
+                FILTER_VALIDATE_INT
+        );
+        
+        if(is_null($id) || $id === false){
+            header('Location: /inicio');
+            return;
+        }
+        
+        
+        
+        $repositorio = new ContatoDAO();
+        $contato = $repositorio->buscarPorId($id);
+        echo $this->renderizar('../view/detalhes-contato.php',[
+            'contato' => $contato
+        ]);
+
+    }
 }
